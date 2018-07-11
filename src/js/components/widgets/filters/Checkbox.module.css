@@ -1,0 +1,41 @@
+.label {
+    cursor: pointer;
+    display: flex;
+    position: relative;
+}
+
+.checkbox {
+    cursor: pointer;
+    display: none;
+}
+
+.box {
+    flex: 0 0 15px;
+    height: 15px;
+    border-radius: 25%;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+}
+
+.box.checked {
+    background-color: #0000ff;
+}
+
+.box:after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 6px;
+    top: 3px;
+    width: 3px;
+    height: 6px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.name {
+    padding-left: 10px;
+}

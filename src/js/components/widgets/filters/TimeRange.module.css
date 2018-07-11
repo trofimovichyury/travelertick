@@ -1,0 +1,8 @@
+.wrapper {
+    position: relative;
+}
+
+.timeValue {
+    position: absolute;
+    top: 30px;
+}
