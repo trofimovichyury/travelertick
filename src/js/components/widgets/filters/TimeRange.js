@@ -64,23 +64,25 @@ class TimeRange extends Component {
         const { title } = this.props;
         return (
             <div className={style.wrapper}>
-                <div>{title}</div>
-                <div ref={ref => this.slider = ref}/>
-                <div
-                    className={style.timeValue}
-                    style={{
-                        left: this.getPosition()
-                    }}
-                >
-                    {getTimeText(this.state.values[0])}
-                </div>
-                <div
-                    className={style.timeValue}
-                    style={{
-                        left: this.getPosition(1)
-                    }}
-                >
-                    {getTimeText(this.state.values[1])}
+                <div className={style.title}>{title}</div>
+                <div className={style.slider}>
+                    <div ref={ref => this.slider = ref}/>
+                    <div
+                        className={style.timeValue}
+                        style={{
+                            left: this.getPosition()
+                        }}
+                    >
+                        {getTimeText(this.state.values[0])}
+                    </div>
+                    <div
+                        className={style.timeValue}
+                        style={{
+                            left: this.getPosition(1)
+                        }}
+                    >
+                        {getTimeText(this.state.values[1])}
+                    </div>
                 </div>
             </div>
         )

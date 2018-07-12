@@ -10,7 +10,9 @@ const ListOfFilters = ({ filters }) => {
         const result = [];
         Object.keys(filters).forEach(key => {
             result.push(
-                <li>
+                <li
+                    key={key}
+                >
                     <Filter
                         filter={filters[key]}
                         filterKey={key}
@@ -31,7 +33,7 @@ const ListOfFilters = ({ filters }) => {
 }
 
 ListOfFilters.propTypes = {
-    filters: PropTypes.array
+    filters: PropTypes.object
 };
 
 export default ListOfFilters;

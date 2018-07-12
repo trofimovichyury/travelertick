@@ -1,3 +1,37 @@
+.ui-widget-content {
+    background-color: #dddddd;
+}
+
+.ui-widget-header {
+    background-color: #0000ff;
+}
+
 .ui-state-default {
     border-radius: 50%;
+}
+
+.ui-slider-horizontal {
+    height: 5px;
+}
+
+.ui-slider .ui-slider-handle {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #0000ff;
+    top: -7px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    letter-spacing: 1px;
+    margin: 17px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }

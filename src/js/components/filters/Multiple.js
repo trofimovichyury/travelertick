@@ -7,40 +7,69 @@ import Checkbox from '../widgets/filters/Checkbox';
 import style from './Multiple.module.css';
 
 class Multiple extends Component {
+    constructor(props) {
+        super(props);
+        const { filter: { initialValues } } = props;
+        this.state = {
+            ifSeeAllIsVisible: initialValues.length > props.defaultShownQuantity
+        };
+    }
+
     onChange = value => {
         this.props.applyFilter(this.props.filter, value, this.props.filterKey);
     };
 
-    render() {
-        const { filter: { title, initialValues, currentValues } } = this.props;
+    showAll = () => this.setState({ ifSeeAllIsVisible: false });
+
+    renderItem = (value, i) => {
+        const { filter: { currentValues }, defaultShownQuantity } = this.props;
         return (
-            <div>
-                <div>{title}</div>
-                <ul className={style.list}>
-                    {
-                        initialValues.map(value => (
-                            <li>
-                                <Checkbox
-                                    value={value}
-                                    checked={currentValues.includes(value)}
-                                    onChange={this.onChange}
-                                />
-                            </li>
-                        ))
-                    }
+            i < defaultShownQuantity || !this.state.ifSeeAllIsVisible ?
+                <li
+                    className={style.item}
+                    key={i}
+                >
+                    <Checkbox
+                        value={value}
+                        checked={currentValues.includes(value)}
+                        onChange={this.onChange}
+                    />
+                </li> :
+                null
+        );
+    };
+
+    render() {
+        const { filter: { title, initialValues } } = this.props;
+        const { ifSeeAllIsVisible } = this.state;
+        return (
+            <div className={style.multiple}>
+                <div className={style.title}>{title}</div>
+                <ul>
+                    {initialValues.map(this.renderItem)}
                 </ul>
+                {
+                    ifSeeAllIsVisible ?
+                        <div
+                            className={style.showAll}
+                            onClick={this.showAll}
+                        >
+                            see all
+                        </div> :
+                        null
+                }
             </div>
         )
     }
 }
 
 Multiple.propTypes = {
-    title: PropTypes.string.isRequired,
-    options: PropTypes.array
+    filter: PropTypes.object,
+    defaultShownQuantity: PropTypes.number
 };
 
 Multiple.defaultProps = {
-    options: []
+    defaultShownQuantity: 5
 };
 
 const mapDispatchToProps = dispatch => ({

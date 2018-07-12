@@ -4,5 +4,17 @@
 
 .timeValue {
     position: absolute;
-    top: 30px;
+    top: 51px;
+    font-size: 13px;
+}
+
+.title {
+    padding-left: 7px;
+    font-size: 14px;
+    opacity: 0.4;
+    margin-bottom: 16px;
+}
+
+.slider {
+    padding: 0 15px 0 14px;
 }

@@ -1,7 +1,7 @@
 import { APPLY_FILTER } from '../action/Filters';
 
 const initialState = {
-    suppliers: {
+    supplier: {
         type: 'multiple',
         title: 'Supplier',
         initialValues: [

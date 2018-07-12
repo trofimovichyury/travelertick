@@ -19,15 +19,16 @@
 
 .box.checked {
     background-color: #0000ff;
+    border: 1px solid #0000ff;
 }
 
 .box:after {
     content: '';
     position: absolute;
     display: block;
-    left: 6px;
+    left: 5px;
     top: 3px;
-    width: 3px;
+    width: 4px;
     height: 6px;
     border: solid #ffffff;
     border-width: 0 2px 2px 0;
@@ -37,5 +38,6 @@
 }
 
 .name {
-    padding-left: 10px;
+    padding-left: 15px;
+    font-size: 14px;
 }

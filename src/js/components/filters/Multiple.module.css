@@ -1,8 +1,24 @@
-.list {
-    list-style-type: none;
-    padding: 0;
+.item {
+    margin-top: 16px;
 }
 
-.list li {
-    margin-bottom: 10px;
+.item:first-child {
+    margin-top: 10px;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.showAll {
+    cursor: pointer;
+    margin-top: 22px;
+    font-size: 13px;
+    text-decoration: underline;
+    opacity: 0.5;
+}
+
+.multiple {
+    padding: 22px 0;
+    border-bottom: 1px solid grey;
 }

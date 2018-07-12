@@ -7,7 +7,12 @@ import { applyFilters } from '../utils/filter';
 class FilterResults extends Component {
     renderResults = results => (
         results.map(item => (
-            <div className={style.item}>{`${item.name} - ${item.supplier}`}</div>
+            <div
+                className={style.item}
+                key={item.name}
+            >
+                {`${item.name} - ${item.supplier}`}
+            </div>
         ))
     );
 
