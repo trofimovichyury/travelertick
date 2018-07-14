@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Measure from 'react-measure';
 
 import { applyFilter } from '../../action/Filters';
 import TimeRange from '../widgets/filters/TimeRange';
@@ -24,10 +23,10 @@ class Time extends Component {
             const arrival = [
                 ...filter.currentValues.arrival
             ];
+            this.setState({
+                minValueForDeparture: values[0]
+            });
             if (arrival[0] < values[0]) {
-                this.setState({
-                    minValueForDeparture: values[0]
-                });
                 arrival[0] = values[0];
             }
             currentValues = {

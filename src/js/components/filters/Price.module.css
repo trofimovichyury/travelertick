@@ -1,4 +1,8 @@
 .priceWrapper {
     margin-bottom: 50px;
-    padding: 0 18px 0 5px;
+}
+
+.title {
+    padding-left: 7px;
+    margin-bottom: 21px;
 }

@@ -19,6 +19,7 @@ class TimeRange extends Component {
     }
 
     getSnapshotBeforeUpdate(prevProps) {
+        console.log('IN SHAPSHOTS');
         if (this.props.minValueForDeparture && prevProps.minValueForDeparture !== this.props.minValueForDeparture) {
             this.updateValues();
         }
@@ -36,11 +37,13 @@ class TimeRange extends Component {
 
     updateValues = () => {
         const firstValue = this.state.values[0];
+        const values = [
+            ...this.state.values
+        ];
         if (firstValue < this.props.minValueForDeparture) {
-            const values = [
-                ...this.state.values
-            ];
             values[0] = this.props.minValueForDeparture;
+        }
+        console.log('UPDATEDDDD');
             this.setState({
                 values
             }, () => {
@@ -52,12 +55,17 @@ class TimeRange extends Component {
                     slide: this.onChange
                 });
             });
-        }
-    }
+    };
 
-    getPosition = (index = 0) => {
-        const val = this.state.values[index];
-        return `${val/this.props.max * 100}%`;
+    getLeftPosition = () => {
+        const { max, minValueForDeparture } = this.props;
+        const val = this.state.values[0];
+        return `calc(${(val - minValueForDeparture)/(max - minValueForDeparture) * 100}% - 8px)`;
+    };
+
+    getRightPosition = () => {
+        const val = this.state.values[1];
+        return `calc(${val/this.props.max * 100}% - 28px)`;
     };
 
     render() {
@@ -67,21 +75,23 @@ class TimeRange extends Component {
                 <div className={style.title}>{title}</div>
                 <div className={style.slider}>
                     <div ref={ref => this.slider = ref}/>
-                    <div
-                        className={style.timeValue}
-                        style={{
-                            left: this.getPosition()
-                        }}
-                    >
-                        {getTimeText(this.state.values[0])}
-                    </div>
-                    <div
-                        className={style.timeValue}
-                        style={{
-                            left: this.getPosition(1)
-                        }}
-                    >
-                        {getTimeText(this.state.values[1])}
+                    <div style={{ position: 'relative'}}>
+                        <div
+                            className={style.timeValue}
+                            style={{
+                                left: this.getLeftPosition()
+                            }}
+                        >
+                            {getTimeText(this.state.values[0])}
+                        </div>
+                        <div
+                            className={style.timeValue}
+                            style={{
+                                left: this.getRightPosition()
+                            }}
+                        >
+                            {getTimeText(this.state.values[1])}
+                        </div>
                     </div>
                 </div>
             </div>

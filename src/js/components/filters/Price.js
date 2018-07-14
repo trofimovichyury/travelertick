@@ -11,10 +11,11 @@ class Price extends Component {
     };
 
     render() {
-        const { filter: { initialValues } } = this.props;
+        const { filter: { initialValues, title } } = this.props;
         return (
             <div>
                 <div className={style.priceWrapper}>
+                    <div className={style.title}>{title}</div>
                     <PriceRange
                         onChange={this.onChange}
                         maxValue={initialValues}

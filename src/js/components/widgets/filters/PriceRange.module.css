@@ -1,8 +1,10 @@
 .wrapper {
     position: relative;
+    padding: 0 15px 0 9px;
 }
 
 .value {
     position: absolute;
-    top: 30px;
+    top: 19px;
+    font-size: 13px;
 }

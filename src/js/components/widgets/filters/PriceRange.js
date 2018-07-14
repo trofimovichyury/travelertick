@@ -7,7 +7,7 @@ class PriceRange extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.maxValue
+            value: props.max
         };
         this.debounceChange = _.debounce(this.props.onChange, 200);
     }
@@ -15,14 +15,15 @@ class PriceRange extends Component {
     componentDidMount() {
         $(this.slider).slider({
             range: 'min',
-            value: this.props.maxValue,
+            value: 490,
             min: 0,
-            max: this.props.maxValue,
+            max: 490,
             slide: this.onChange
         });
     }
 
     onChange = (event, data) => {
+        console.log(data);
         this.setState({
             value: data.value
         });
@@ -31,16 +32,14 @@ class PriceRange extends Component {
 
     getPosition = () => {
         const val = this.state.value;
-        return `${val/this.props.max * 100}%`;
+        return `calc(${val/this.props.max * 100}% - 37px)`;
     };
 
-    getText = value => `${value}$`;
+    getText = value => `$${value}`;
 
     render() {
-        const { title } = this.props;
         return (
             <div className={style.wrapper}>
-                <div>{title}</div>
                 <div ref={ref => this.slider = ref}/>
                 <div
                     className={style.value}

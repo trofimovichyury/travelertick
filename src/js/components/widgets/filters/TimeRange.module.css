@@ -4,12 +4,12 @@
 
 .timeValue {
     position: absolute;
-    top: 51px;
+    top: 10px;
     font-size: 13px;
 }
 
 .title {
-    padding-left: 7px;
+    padding-left: 3px;
     font-size: 14px;
     opacity: 0.4;
     margin-bottom: 16px;

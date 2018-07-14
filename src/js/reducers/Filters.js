@@ -20,7 +20,7 @@ const initialState = {
         initialValues: [
             'Bus',
             'Ferry',
-            'Train'
+            /*'Train'*/
         ],
         currentValues: []
     },
