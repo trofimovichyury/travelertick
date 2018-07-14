@@ -1,4 +1,4 @@
-import Multiple from './Multiple';
+import Multiple from './MultipleContainer';
 import Price from './Price';
 import Time from './Time';
 

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-import { applyFilter } from '../../action/Filters';
 import Checkbox from '../widgets/filters/Checkbox';
 import style from './Multiple.module.css';
 
-class Multiple extends Component {
+export default class Multiple extends Component {
     constructor(props) {
         super(props);
         const { filter: { initialValues } } = props;
@@ -71,9 +69,3 @@ Multiple.propTypes = {
 Multiple.defaultProps = {
     defaultShownQuantity: 5
 };
-
-const mapDispatchToProps = dispatch => ({
-    applyFilter: (filter, data, filterKey) => dispatch(applyFilter(filter, data, filterKey))
-});
-
-export default connect(null, mapDispatchToProps)(Multiple);
