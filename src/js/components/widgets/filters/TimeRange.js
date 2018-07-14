@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import { getTimeText } from '../../../utils/filter';
+import { getLeftPosition, getRightPosition, initSlider } from '../../../utils/rangeSlider';
 import style from './TimeRange.module.css';
 
 class TimeRange extends Component {
@@ -9,21 +10,26 @@ class TimeRange extends Component {
     };
 
     componentDidMount() {
-        $(this.slider).slider({
-            range: true,
-            min: this.props.minValueForDeparture || 0,
-            max: 24,
-            values: [ 0, 24 ],
-            slide: this.onChange
-        });
+        this.initSlider();
     }
 
     getSnapshotBeforeUpdate(prevProps) {
-        console.log('IN SHAPSHOTS');
-        if (this.props.minValueForDeparture && prevProps.minValueForDeparture !== this.props.minValueForDeparture) {
+        if (prevProps.minValueForDeparture !== this.props.minValueForDeparture) {
             this.updateValues();
         }
     }
+
+    initSlider = () => {
+        if (this.slider) {
+            initSlider(this.slider, {
+                range: true,
+                min: this.props.minValueForDeparture || 0,
+                max: 24,
+                values: this.state.values,
+                slide: this.onChange
+            });
+        }
+    };
 
     onChange = (event, data) => {
         const { values } = data;
@@ -43,33 +49,14 @@ class TimeRange extends Component {
         if (firstValue < this.props.minValueForDeparture) {
             values[0] = this.props.minValueForDeparture;
         }
-        console.log('UPDATEDDDD');
-            this.setState({
-                values
-            }, () => {
-                $(this.slider).slider({
-                    range: true,
-                    min: this.props.minValueForDeparture,
-                    max: 24,
-                    values: this.state.values,
-                    slide: this.onChange
-                });
-            });
-    };
-
-    getLeftPosition = () => {
-        const { max, minValueForDeparture } = this.props;
-        const val = this.state.values[0];
-        return `calc(${(val - minValueForDeparture)/(max - minValueForDeparture) * 100}% - 8px)`;
-    };
-
-    getRightPosition = () => {
-        const val = this.state.values[1];
-        return `calc(${val/this.props.max * 100}% - 28px)`;
+        this.setState({
+            values
+        }, this.initSlider);
     };
 
     render() {
-        const { title } = this.props;
+        const { title, max, minValueForDeparture } = this.props;
+        const { values } = this.state;
         return (
             <div className={style.wrapper}>
                 <div className={style.title}>{title}</div>
@@ -79,7 +66,7 @@ class TimeRange extends Component {
                         <div
                             className={style.timeValue}
                             style={{
-                                left: this.getLeftPosition()
+                                left: getLeftPosition(values[0], minValueForDeparture, max, '8px')
                             }}
                         >
                             {getTimeText(this.state.values[0])}
@@ -87,7 +74,7 @@ class TimeRange extends Component {
                         <div
                             className={style.timeValue}
                             style={{
-                                left: this.getRightPosition()
+                                left: getRightPosition(values[1], max, '28px')
                             }}
                         >
                             {getTimeText(this.state.values[1])}

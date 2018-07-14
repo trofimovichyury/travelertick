@@ -3,7 +3,6 @@ import React from 'react';
 import style from './Checkbox.module.css';
 
 const Checkbox = ({ value, checked, onChange }) => {
-    console.log(checked);
     return (
         <label className={style.label}>
             <span className={`${style.box} ${ checked ? style.checked : ''}`} />

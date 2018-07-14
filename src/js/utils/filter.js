@@ -31,3 +31,28 @@ export const getTimeText = value => {
 };
 
 const timeComparing = (times, value) => getTimeText(times[0]) <= value && getTimeText(times[1]) >= value;
+
+export const DEPARTURE = 'departure';
+export const ARRIVE = 'arrive';
+
+export const getCurrentValuesOnTimeChanges = (values, type, filter) => {
+    let currentValues;
+    if (type === DEPARTURE) {
+        const arrival = [
+            ...filter.currentValues.arrival
+        ];
+        if (arrival[0] < values[0]) {
+            arrival[0] = values[0];
+        }
+        currentValues = {
+            arrival,
+            departure: values
+        };
+    } else {
+        currentValues = {
+            ...filter.currentValues,
+            arrival: values
+        };
+    }
+    return currentValues;
+};

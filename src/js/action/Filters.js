@@ -1,7 +1,6 @@
 export const APPLY_FILTER = 'APPLY_FILTER';
 export const applyFilter = (filter, data, filterKey) => {
     let currentValues;
-    console.log(filterKey);
     switch (filter.type) {
         case 'multiple':
             currentValues = [

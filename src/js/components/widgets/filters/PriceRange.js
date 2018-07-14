@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 
+import { getRightPosition, initSlider } from '../../../utils/rangeSlider';
 import style from './PriceRange.module.css';
 
 class PriceRange extends Component {
@@ -13,26 +14,22 @@ class PriceRange extends Component {
     }
 
     componentDidMount() {
-        $(this.slider).slider({
-            range: 'min',
-            value: 490,
-            min: 0,
-            max: 490,
-            slide: this.onChange
-        });
+        if (this.slider) {
+            initSlider(this.slider, {
+                range: 'min',
+                value: this.props.max,
+                min: 0,
+                max: this.props.max,
+                slide: this.onChange
+            })
+        }
     }
 
     onChange = (event, data) => {
-        console.log(data);
         this.setState({
             value: data.value
         });
         this.debounceChange(data.value);
-    };
-
-    getPosition = () => {
-        const val = this.state.value;
-        return `calc(${val/this.props.max * 100}% - 37px)`;
     };
 
     getText = value => `$${value}`;
@@ -41,13 +38,16 @@ class PriceRange extends Component {
         return (
             <div className={style.wrapper}>
                 <div ref={ref => this.slider = ref}/>
-                <div
-                    className={style.value}
-                    style={{
-                        left: this.getPosition()
-                    }}
-                >
-                    {this.getText(this.state.value)}
+                <div className={style.textWrapper}>
+                    <div
+                        ref={ref => this.priceText = ref}
+                        className={style.value}
+                        style={{
+                            left: getRightPosition(this.state.value, this.props.max, '22px')
+                        }}
+                    >
+                        {this.getText(this.state.value)}
+                    </div>
                 </div>
             </div>
         )

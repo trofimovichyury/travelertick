@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { applyFilter } from '../../action/Filters';
+import { DEPARTURE, ARRIVE, getCurrentValuesOnTimeChanges } from '../../utils/filter';
 import TimeRange from '../widgets/filters/TimeRange';
 import style from './Time.module.css';
-
-const DEPARTURE = 'departure';
-const ARRIVE = 'arrive';
 
 class Time extends Component {
     state = {
@@ -18,26 +16,11 @@ class Time extends Component {
 
     onUpdate = (values, type) => {
         const { filter } = this.props;
-        let currentValues;
+        const currentValues = getCurrentValuesOnTimeChanges(values, type, filter);
         if (type === DEPARTURE) {
-            const arrival = [
-                ...filter.currentValues.arrival
-            ];
             this.setState({
                 minValueForDeparture: values[0]
             });
-            if (arrival[0] < values[0]) {
-                arrival[0] = values[0];
-            }
-            currentValues = {
-                arrival,
-                departure: values
-            };
-        } else {
-            currentValues = {
-                ...filter.currentValues,
-                arrival: values
-            };
         }
         this.props.applyFilter(filter, currentValues, this.props.filterKey);
     };
@@ -52,7 +35,7 @@ class Time extends Component {
                     onClick={this.onOpen}
                 >
                     <div className={style.title}>
-                        <div className={style.titleText}>{title}</div>
+                        <div>{title}</div>
                         <div className={`${style.titleArrow} ${isOpen ? style.bottom : style.top}`}/>
                     </div>
                 </div>
@@ -81,9 +64,5 @@ class Time extends Component {
 const mapDispatchToProps = dispatch => ({
     applyFilter: (filter, data, filterKey) => dispatch(applyFilter(filter, data, filterKey))
 });
-
-Time.defaultProps = {
-    max: 24
-};
 
 export default connect(null, mapDispatchToProps)(Time);
