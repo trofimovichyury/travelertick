@@ -17,6 +17,7 @@ class TimeRange extends Component {
         if (prevProps.minValueForDeparture !== this.props.minValueForDeparture) {
             this.updateValues();
         }
+        return null;
     }
 
     initSlider = () => {
