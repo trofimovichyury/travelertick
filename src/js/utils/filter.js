@@ -26,7 +26,7 @@ export const applyFilters = (filters, data) => {
 };
 
 export const getTimeText = value => {
-    const val = value || '00';
+    const val = value < 10 ? `0${value}` : value;
     return value === 24 ? '23:59' : `${val}:00`;
 };
 
